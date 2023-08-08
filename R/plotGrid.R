@@ -21,11 +21,9 @@
 #' @param  main The title text to be included in the top line of the plot. Defaults to the name of the field.
 #' @param  col.low [unimplemented] The color used when plotting out-of-range z values on the low end. Default value of '' indicates to use the minimum value of pal(). A value of NA skips the plotting of these data. Otherwise the color given is used (e.g. col.low = 'blue').
 #' @param  col.high [unimplemented] Same as col.low but for out-of-range high values.
-plotGrid = function(section, field = NULL,
+plotGrid = function(section,
                         xlim = NULL,
                         ylim = NULL,
-                        by.lon = F,
-                        by.lat = F,
                         xlab = 'x',
                         ylab = 'y',
                         log = FALSE,
@@ -44,26 +42,10 @@ plotGrid = function(section, field = NULL,
                         indicate = T,
                         ...) {
 
-  ## Set Defaults
-  # Check if values need to set and set them.
-  if (is.null(field)) {
-    field = colnames(section$grid)[3]
-    warning('No field name provided, using first gridded data: ', field)
-  }
-
   ## Handy variables
   x = section$x
   y = section$y
-  z = matrix(section$grid[,field], nrow = length(x))
-  if (by.lon) {
-    if (verbose) { message(' Plotting based on longitude.')}
-    x = approx(section$x, section$lon, xout = x, rule = 2)$y
-  }
-  if (by.lat) {
-    if (verbose) { message(' Plotting based on latitude.')}
-    x = approx(section$x, section$lat, xout = x, rule = 2)$y
-  }
-
+  z = section$z
 
   if (log) {
     z = log(z, base)
@@ -74,7 +56,7 @@ plotGrid = function(section, field = NULL,
 
   if (is.null(zlim)) { zlim = range(pretty(z), na.rm = TRUE) }
 
-  if (is.null(main)) { main = field }
+  if (is.null(main)) { main = main }
   if (is.null(xlim)) { xlim = range(x, na.rm = T)}
   if (is.null(ylim)) { ylim = range(y, na.rm = T) }
 
@@ -91,27 +73,6 @@ plotGrid = function(section, field = NULL,
   image(x = x, y = y, z = z, col = get.pal(N, pal = pal, rev = rev), ylab = ylab, xlab = xlab,
         xlim = xlim, ylim = ylim, zlim = zlim, ...)
 
-  # Plot points that are out of range when a color is given
-  if (!is.na(col.low) & col.low != '') {
-    zz = z
-    zz[zz >= zlim[1]] = NA
-    image(x = x, y = y, z = zz, col = col.low, add = TRUE)#, pch = include.pch, cex = include.cex)
-  }
-
-  if (!is.na(col.high) & col.high != '') {
-    zz = z
-    zz[zz <= zlim[2]] = NA
-    image(x = x, y = y, z = zz, col = col.high, add = TRUE)#, pch = include.pch, cex = include.cex)
-  }
-
-  if (mark.points) {
-    points(x = section$data$x, y = section$data$y, pch = 20, cex = include.cex) ## Add black points
-  }
-  if (include.data) {
-    col = make.pal(section$data$z[,field], pal = pal, n = N, min = zlim[1], max = zlim[2], rev = rev)
-    points(x = section$data$x, y = section$data$y, pch = include.pch,
-           cex = include.cex, col = col, bg = col)
-  }
 
   ## Add Title text
   if (indicate) {

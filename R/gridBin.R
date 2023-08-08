@@ -11,7 +11,7 @@
 #' @param uncertainty Unused
 #' @author Thomas Bryce Kelly
 #' @export
-gridBin = function(gx, gy, x, y, z, p = 2, xscale = 1, yscale = 1, uncertainty = 0.1, neighborhood = NULL, x.factor = 1, y.factor = 1) {
+gridBin = function(gx, gy, x, y, z, p = 2, xscale = 1, yscale = 1, uncertainty = 0.1, neighborhood = NULL) {
   gz = rep(NA, length(gx))
 
   if (xscale == 0) { xscale = Inf }
@@ -23,3 +23,4 @@ gridBin = function(gx, gy, x, y, z, p = 2, xscale = 1, yscale = 1, uncertainty =
 
   gz ## Return
 }
+
