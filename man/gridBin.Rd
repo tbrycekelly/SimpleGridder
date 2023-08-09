@@ -14,9 +14,7 @@ gridBin(
   xscale = 1,
   yscale = 1,
   uncertainty = 0.1,
-  neighborhood = NULL,
-  x.factor = 1,
-  y.factor = 1
+  neighborhood = NULL
 )
 }
 \arguments{

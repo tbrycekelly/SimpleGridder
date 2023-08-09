@@ -7,7 +7,7 @@
 #' @param z Observations, z values
 #' @param p Exponent on the distance function
 #' @export
-gridWeighted = function(tree, z, gx, gy, neighborhood = 25) {
+gridWeighted = function(tree, z, gx, gy, neighborhood = 25, weight.func = function(x) {1 / x^2}) {
 
   grid = data.frame(x = gx, y = gy)
   tmp = tree$query(grid, neighborhood)
@@ -15,7 +15,7 @@ gridWeighted = function(tree, z, gx, gy, neighborhood = 25) {
   grid$z = NA
 
   for (i in 1:nrow(grid)) {
-    w = 1 / tmp$nn.dist[i,]^2
+    w = weight.func(tmp$nn.dist[i,])
     grid$z[i] = sum(z[tmp$nn.idx[i,]] * w) / sum(w)
   }
 

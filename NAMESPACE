@@ -2,8 +2,10 @@
 
 export(addContour)
 export(addMask)
+export(appendData)
 export(buildGrid)
 export(calcVertex)
 export(gridBin)
 export(gridWeighted)
 export(plotGrid)
+export(setGridder)

@@ -5,22 +5,19 @@
 \title{Grid via Inverse Distance Weighting Interpolation}
 \usage{
 gridWeighted(
+  tree,
+  z,
   gx,
   gy,
-  x,
-  y,
-  z,
-  p = 2,
-  xscale = 1,
-  yscale = 1,
-  uncertainty = 0.1,
-  neighborhood = NULL,
-  x.factor = 1,
-  y.factor = 1,
-  verbose = F
+  neighborhood = 25,
+  weight.func = function(x) {
+     1/x^2
+ }
 )
 }
 \arguments{
+\item{z}{Observations, z values}
+
 \item{gx}{Grid x values to interpolate onto}
 
 \item{gy}{Grid y values to interpolate onto}
@@ -28,8 +25,6 @@ gridWeighted(
 \item{x}{Observations, x values}
 
 \item{y}{Observations, y values}
-
-\item{z}{Observations, z values}
 
 \item{p}{Exponent on the distance function}
 }
