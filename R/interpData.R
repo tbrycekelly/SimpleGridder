@@ -1,18 +1,16 @@
 #' @export
-appendData = function(grid,
-                      x,
-                      y,
-                      z,
+interpData = function(grid,
                       label
-                      ) {
+) {
 
-
-  ## Get Data ready
-  # Remove NAs (they poison everything)
-  l = !is.na(x) & !is.na(y) & !is.na(z)
-  x = x[l]
-  y = y[l]
-  z = z[l]
+  if (!label %in% names(grid$data)) {
+    message('No dataset with label ', label, ' found in the grid object. Skipping.')
+    return(grid)
+  }
+  l = !is.na(grid$data[[label]])
+  x = grid$grid$x[l]
+  y = grid$grid$y[l]
+  z = grid$data[[label]][l]
 
   neighborhood = min(grid$gridder$neighborhood, length(x))
 
@@ -26,7 +24,7 @@ appendData = function(grid,
 
   z.grid = gridWeighted(tree = tree, z = z, gx = tmp$x, gy = tmp$y, neighborhood = neighborhood)
 
-  grid$data[[label]] = array(z.grid$z, dim = c(grid$meta$nx, grid$meta$ny))
+  grid$interp[[label]] = array(z.grid$z, dim = c(grid$meta$nx, grid$meta$ny))
 
   grid
 }

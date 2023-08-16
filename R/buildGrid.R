@@ -52,6 +52,10 @@ buildGrid = function(xlim,
   ## Construct return object
   grid = list(x = x.new,
               y = y.new,
+              data = list(),
+              interp = list(),
+              grid = list(x = matrix(x.new, nrow = nx, ncol = ny),
+                          y = t(matrix(y.new, nrow = ny, ncol = nx))),
               meta = meta
   )
 
