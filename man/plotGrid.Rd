@@ -6,12 +6,13 @@
 \usage{
 plotGrid(
   section,
+  label,
   xlim = NULL,
   ylim = NULL,
   xlab = "x",
   ylab = "y",
   zlim = NULL,
-  pal = "greyscale",
+  pal = greyscale(16),
   rev = F,
   N = 16,
   ...

@@ -1,16 +1,7 @@
+#' Apply interpolation to dataset
 #' @export
-interpData = function(grid,
-                      label
+interpData = function(grid
 ) {
-
-  if (!label %in% names(grid$data)) {
-    message('No dataset with label ', label, ' found in the grid object. Skipping.')
-    return(grid)
-  }
-  l = !is.na(grid$data[[label]])
-  x = grid$grid$x[l]
-  y = grid$grid$y[l]
-  z = grid$data[[label]][l]
 
   neighborhood = min(grid$gridder$neighborhood, length(x))
 
@@ -21,10 +12,12 @@ interpData = function(grid,
   tmp = expand.grid(x = grid$x / grid$meta$x.scale / grid$meta$x.factor,
                     y = grid$y / grid$meta$y.scale / grid$meta$y.factor)
 
+  for (label in names(grid$data)[-c(1:2)]) {
+    z = grid$data[[label]]
+    z.grid = gridWeighted(tree = tree, z = z, gx = tmp$x, gy = tmp$y, neighborhood = neighborhood)
 
-  z.grid = gridWeighted(tree = tree, z = z, gx = tmp$x, gy = tmp$y, neighborhood = neighborhood)
-
-  grid$interp[[label]] = array(z.grid$z, dim = c(grid$meta$nx, grid$meta$ny))
+    grid$interp[[label]] = array(z.grid$z, dim = c(grid$meta$nx, grid$meta$ny))
+  }
 
   grid
 }

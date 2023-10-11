@@ -4,27 +4,29 @@
 #' @keywords Section Plotting
 #' @export
 plotGrid = function(section,
+                    label,
                         xlim = NULL,
                         ylim = NULL,
                         xlab = 'x',
                         ylab = 'y',
                         zlim = NULL,
-                        pal = 'greyscale',
+                        pal = greyscale(16),
                         rev = F,
                         N = 16,
                         ...) {
 
   ## Handy variables
+
   x = section$x
   y = section$y
-  z = section$z
+  z = section$interp[[label]]
 
   if (is.null(zlim)) { zlim = range(pretty(z)) }
   if (is.null(xlim)) { xlim = range(pretty(x))}
   if (is.null(ylim)) { ylim = range(pretty(y)) }
 
-  ## Plot iamge
-  image(x = x, y = y, z = z, col = get.pal(N, pal = pal, rev = rev), ylab = ylab, xlab = xlab,
+  ## Plot image
+  image.default(x = x, y = y, z = z, col = pal, ylab = ylab, xlab = xlab,
         xlim = xlim, ylim = ylim, zlim = zlim, ...)
 
   box() ## make sure plotting didn't cover bounding box
