@@ -73,7 +73,7 @@ This also sets the relative length scales used. For example, if I want to estima
 ### setGridder
 The `setGridder()` function sets the interpolation algorithm that you want to use with your data. This is set once and is applied to all data within a grid.
 
-```{r}
+```{r eval=FALSE}
 setGridder(grid,
            gridder = gridWeighted,
            weight.func = function(x) {1 / x^2},
@@ -84,9 +84,43 @@ Arguments to this function include the _grid_ itself, the interpolation algorith
 
 
 ### appendData
+This simple function just stores a copy of the variables provided in the _data_ list of the grid. This ensure that any preprocessing can be done if required (doesn't do anything like that currently) and offers the potential of re-interpolating data sets or cross-validating results later on.
 
+```{r eval=FALSE}
+grid = appendData(grid, x, y, z, label)
+```
+
+Everything in this function call should be self explanatory except for the __label__ argument. Use __label__ to set the name of the data set that you are appending. This should be a valid R name (e.g. starting with a number is invalid), so just don't be too wild with it.
 
 ### interpData
+This is the final step to generate the interpolated data product and is hopefully the lest eventful. This function accepts no arguments except for the grid object created earlier. During this function call all the calculations are performed and the resulting interpolated data set is actually created. The resulting data set is placed into _interp_ and is given the same label as provided to the original data above.
+
+```{r eval=FALSE}
+grid = interpData(grid)
+```
 
 
 ### plotGrid
+While I said the last step was the final step, it would not be very fun to leave it there. The visualization tools are currently limited to a simple plot of the interpolated data. Eventually there will be additional functions for special applications and diagnostics.
+
+``` {r eval=FALSE}
+plotGrid(section, label, xlim, ylim, xlab, ylab, zlim, pal, ...)
+```
+
+The `plotGrid()` function accepts a grid product as input along with the data set label (as above) to indicate which interpolated values to plot. The usual formatting options are available with __xlab, ylab, xlim,__ and __ylim__. Additionally the colorscale range can be set with __zlim__ and the color palette provided to __pal__ as a set of colors. The default palette is `grayscale(16)`, or a set of 16 grayscale values from black to white. I recommend using the many excellent palatte functions provided in _pals_: e.g. `pals::inferno(8)` or `pals::ocean.haline(32)`. Note that the number provided here is arbitrary and just sets the number of distinct colors available. 
+
+Here are a couple of example plots using the same grid as the first example:
+
+```{r}
+grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
+grid = setGridder(grid, neighborhood = 20)
+grid = appendData(grid, x, y, z, 'salinity')
+grid = interpData(grid)
+
+par(mfrow=c(2,2))
+plotGrid(grid, 'salinity', pal = pals::inferno(8))
+plotGrid(grid, 'salinity', pal = pals::ocean.dense(8))
+plotGrid(grid, 'salinity', pal = pals::inferno(128))
+plotGrid(grid, 'salinity', pal = pals::ocean.dense(128))
+
+```

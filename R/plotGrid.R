@@ -11,8 +11,6 @@ plotGrid = function(section,
                         ylab = 'y',
                         zlim = NULL,
                         pal = greyscale(16),
-                        rev = F,
-                        N = 16,
                         ...) {
 
   ## Handy variables
