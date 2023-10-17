@@ -1,7 +1,7 @@
 Package: SimpleGridder
 Type: Package
 Title: A simple utility for (re)gridding observational data.
-Version: 0.1.0
+Version: 0.1.2
 Author: Thomas Kelly
 Maintainer: Thomas Kelly <tbkelly@alaska.edu>
 Description: This package is to facilitate the interpolation/extrapolation/binning of irregularly spaced observational data onto a reguarl grid. Tools include multiple interpolators and simple, base-graphics plotting routines that are easily adapted.
