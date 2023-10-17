@@ -71,6 +71,16 @@ Finally there are the __x.factor__ and __y.factor__ arguments. These are a bit m
 This also sets the relative length scales used. For example, if I want to estimate the temperature of the water at a given point based on observations either 10 feet from me horizontally or 10 feet below me, we would usually assume that the temperature besides me is a better guess than below me (cold water sinks). This allows us to set this relationship. Unfortunately this is one of the biggest sources of issues for qualitatively "bad" interpolations and there's not a great one-size-fits-all approach to set these values. This will likely be a topic of an entire conversation someother time.
 
 ### setGridder
+The `setGridder()` function sets the interpolation algorithm that you want to use with your data. This is set once and is applied to all data within a grid.
+
+```{r}
+setGridder(grid,
+           gridder = gridWeighted,
+           weight.func = function(x) {1 / x^2},
+           neighborhood = 20)
+```
+
+Arguments to this function include the _grid_ itself, the interpolation algorithm __gridder__ which defaults to `gridWeighter`, a weighting function (__weight.func__) that defaults to the inverse of the distance squared, and a local neighborhood that limits how many points are considered in the interpolation.
 
 
 ### appendData
