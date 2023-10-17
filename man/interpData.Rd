@@ -4,7 +4,7 @@
 \alias{interpData}
 \title{Apply interpolation to dataset}
 \usage{
-interpData(grid, label)
+interpData(grid)
 }
 \description{
 Apply interpolation to dataset

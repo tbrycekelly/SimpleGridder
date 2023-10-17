@@ -1,30 +1,6 @@
 #library(TheSource)
-library(SimpleGridder)
-library(pals)
-library(less)
+#library(less)
 
-
-n = 10
-x = runif(n)
-y = runif(n)
-z = x + y
-
-
-## Setup a blank grid
-grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
-grid = setGridder(grid, neighborhood = 20)
-
-## Append Data
-grid = appendData(grid, x, y, z, 'salinity')
-
-
-## Interpolate
-grid = interpData(grid)
-plotGrid(grid, 'salinity')
-
-grid
-
-plot.image(z = grid$z, pal = 'ocean.deep')
 
 
 
