@@ -4,7 +4,7 @@ author: "Thomas Bryce Kelly"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Using SimpleGridder}
+  %\VignetteIndexEntry{Using SimpleGridder: Gridding Environmental Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -103,7 +103,7 @@ grid = interpData(grid)
 ### plotGrid
 While I said the last step was the final step, it would not be very fun to leave it there. The visualization tools are currently limited to a simple plot of the interpolated data. Eventually there will be additional functions for special applications and diagnostics.
 
-``` {r eval=FALSE}
+```{r plotGrid, eval=FALSE}
 plotGrid(section, label, xlim, ylim, xlab, ylab, zlim, pal, ...)
 ```
 
@@ -111,16 +111,16 @@ The `plotGrid()` function accepts a grid product as input along with the data se
 
 Here are a couple of example plots using the same grid as the first example:
 
-```{r}
+```{r example-gridPlots}
 grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
 grid = setGridder(grid, neighborhood = 20)
 grid = appendData(grid, x, y, z, 'salinity')
 grid = interpData(grid)
 
-par(mfrow=c(2,2))
+#par(mfrow=c(2,2))
 plotGrid(grid, 'salinity', pal = pals::inferno(8))
-plotGrid(grid, 'salinity', pal = pals::ocean.dense(8))
 plotGrid(grid, 'salinity', pal = pals::inferno(128))
+plotGrid(grid, 'salinity', pal = pals::ocean.dense(8))
 plotGrid(grid, 'salinity', pal = pals::ocean.dense(128))
 
 ```
