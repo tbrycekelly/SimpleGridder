@@ -33,18 +33,18 @@ buildGrid = function(xlim,
   meta$x.scale = x.scale
   meta$y.scale = y.scale
 
-  ## Rescale x and y based on x.factor and y.factor
-  if (is.null(x.factor)) { x.factor = (y.scale/x.scale + 1/2) }
-  if (is.null(y.factor)) { y.factor = (x.scale/y.scale + 1/2) }
-  meta$x.factor = x.factor
-  meta$y.factor = y.factor
-
   y.new = seq(ylim[1], ylim[2], by = y.scale)
   x.new = seq(xlim[1], xlim[2], by = x.scale)
   nx = length(x.new)
   ny = length(y.new)
   meta$nx = nx
   meta$ny = ny
+
+  ## Rescale x and y based on x.factor and y.factor
+  if (is.null(x.factor)) { x.factor = 2*ny/(nx+ny) }
+  if (is.null(y.factor)) { y.factor = 2*nx/(nx+ny) }
+  meta$x.factor = x.factor
+  meta$y.factor = y.factor
 
   ## Make grid and fill in
   grid = expand.grid(x = x.new, y = y.new)

@@ -10,6 +10,7 @@ plotGrid = function(section,
                         xlab = 'x',
                         ylab = 'y',
                         zlim = NULL,
+                        ztrim = NULL,
                         pal = greyscale(16),
                         ...) {
 
@@ -22,6 +23,10 @@ plotGrid = function(section,
   if (is.null(zlim)) { zlim = range(pretty(z)) }
   if (is.null(xlim)) { xlim = range(pretty(x))}
   if (is.null(ylim)) { ylim = range(pretty(y)) }
+  if (is.null(ztrim)) { ztrim = zlim }
+
+  z[z < zlim[1]] = ztrim[1]
+  z[z > zlim[2]] = ztrim[2]
 
   ## Plot image
   image.default(x = x, y = y, z = z, col = pal, ylab = ylab, xlab = xlab,

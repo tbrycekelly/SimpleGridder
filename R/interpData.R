@@ -1,12 +1,12 @@
 #' Apply interpolation to dataset
 #' @export
-interpData = function(grid
-) {
+#' @import less
+interpData = function(grid) {
 
   neighborhood = min(grid$gridder$neighborhood, length(x))
 
-  x = x / grid$meta$x.scale / grid$meta$x.factor
-  y = y / grid$meta$y.scale / grid$meta$y.factor
+  x = grid$data$x / grid$meta$x.scale / grid$meta$x.factor
+  y = grid$data$y / grid$meta$y.scale / grid$meta$y.factor
   tree = less::KDTree$new(X = data.frame(x = x, y = y))
 
   tmp = expand.grid(x = grid$x / grid$meta$x.scale / grid$meta$x.factor,
