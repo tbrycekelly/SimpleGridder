@@ -1,7 +1,4 @@
-#library(TheSource)
-#library(less)
-
-
+library(SimpleGridder)
 
 
 val = c(10, 30, 100, 300, 1000, 3e3, 1e4, 3e4, 1e5, 3e5, 1e6, 3e6)
