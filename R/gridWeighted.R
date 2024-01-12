@@ -16,7 +16,7 @@ gridWeighted = function(tree, z, gx, gy, neighborhood = 25, weight.func = functi
 
   for (i in 1:nrow(grid)) {
     w = weight.func(tmp$nn.dist[i,])
-    grid$z[i] = sum(z[tmp$nn.idx[i,]] * w) / sum(w+.Machine$double.xmin)
+    grid$z[i] = sum(z[tmp$nn.idx[i,]] * w) / (sum(w) + .Machine$double.xmin)
   }
 
   grid

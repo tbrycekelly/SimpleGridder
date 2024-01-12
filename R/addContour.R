@@ -10,9 +10,9 @@
 #' @export
 addContour = function(section, field = NULL, levels = NULL, col = 'black', lty = 1, lwd = 1, labels = NULL, cex.lab = 1) {
   if (is.null(field)) {
-    field = colnames(section$grid)[3] # first interpolated field
+    field = colnames(section$interp)[1] # first interpolated field
   }
-  z = matrix(section$grid[[field]], nrow = length(section$x))
+  z = matrix(section$interp[[field]], nrow = length(section$x))
   if (is.null(levels)) { levels = pretty(range(as.numeric(z), na.rm = T), n = 5) }
 
   contour(section$x, section$y, z, add = TRUE, levels = levels, col = col, lty = lty, lwd = lwd,

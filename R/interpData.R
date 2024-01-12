@@ -3,7 +3,7 @@
 #' @import less
 interpData = function(grid) {
 
-  neighborhood = min(grid$gridder$neighborhood, length(x))
+  neighborhood = min(grid$gridder$neighborhood, nrow(grid$data))
 
   x = grid$data$x / grid$meta$x.scale / grid$meta$x.factor
   y = grid$data$y / grid$meta$y.scale / grid$meta$y.factor

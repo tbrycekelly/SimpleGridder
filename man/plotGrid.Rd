@@ -12,6 +12,7 @@ plotGrid(
   xlab = "x",
   ylab = "y",
   zlim = NULL,
+  ztrim = NULL,
   pal = greyscale(16),
   ...
 )
