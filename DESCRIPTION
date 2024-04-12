@@ -13,3 +13,5 @@ VignetteBuilder: knitr
 Suggests: knitr,
     rmarkdown,
     pals
+Imports:
+    less
