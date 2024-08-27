@@ -32,5 +32,7 @@ plotGrid = function(section,
   image.default(x = x, y = y, z = z, col = pal, ylab = ylab, xlab = xlab,
         xlim = xlim, ylim = ylim, zlim = zlim, ...)
 
+  points(section$data$x, section$data$y, pch = '.')
+
   box() ## make sure plotting didn't cover bounding box
 }

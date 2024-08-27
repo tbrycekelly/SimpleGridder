@@ -20,6 +20,18 @@ grid = appendData(grid, x, y, z, 'salinity')
 grid = interpData(grid)
 plotGrid(grid, 'salinity')
 
+grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
+grid = setGridder(grid, neighborhood = 20, gridder = gridNN)
+grid = appendData(grid, x, y, z, 'salinity')
+grid = interpData(grid)
+plotGrid(grid, 'salinity')
+
+grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
+grid = setGridder(grid, neighborhood = 20, gridder = gridBin, func = function(x){mean(x, na.rm = T)})
+grid = appendData(grid, x, y, z, 'salinity')
+grid = interpData(grid)
+plotGrid(grid, 'salinity')
+
 ## ----echo=TRUE----------------------------------------------------------------
 grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
 str(grid)

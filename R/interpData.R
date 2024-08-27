@@ -14,12 +14,16 @@ interpData = function(grid) {
 
   for (label in names(grid$data)[-c(1:2)]) {
     z = grid$data[[label]]
-    z.grid = grid$gridder$gridder(tree = tree,
+    z.grid = grid$gridder$gridder(x = x,
+                                  y = y,
+                                  tree = tree,
                                   z = z,
                                   gx = tmp$x,
                                   gy = tmp$y,
+                                  dx = grid$meta$x.scale / grid$meta$x.factor,
+                                  dy = grid$meta$y.scale / grid$meta$y.factor,
                                   neighborhood = neighborhood,
-                                  weight.func = grid$gridder$weight.func)
+                                  func = grid$gridder$func)
 
     grid$interp[[label]] = array(z.grid$z, dim = c(grid$meta$nx, grid$meta$ny))
   }

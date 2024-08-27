@@ -18,5 +18,6 @@ for (n in val) {
 
   delay = c(delay, as.numeric(b) - as.numeric(a))
 }
+
 plot(log10(val), delay)
 

@@ -1,4 +1,4 @@
-#' @title Grid via Binning
+#' @title Grid via Nearest Neighbor
 #' @description Bins data into reguarly spaced grid
 #' @param gx Grid x values to interpolate onto
 #' @param gy Grid y values to interpolate onto
@@ -11,7 +11,7 @@
 #' @param uncertainty Unused
 #' @author Thomas Bryce Kelly
 #' @export
-gridBin = function(x,
+gridNN = function(x,
                    y,
                    z,
                    tree,
@@ -20,13 +20,15 @@ gridBin = function(x,
                    dx,
                    dy,
                    neighborhood = NULL,
-                   func = function(x){mean(x, na.rm = T)}) {
+                   func = NULL) {
 
   grid = data.frame(x = gx, y = gy)
+  tmp = tree$query(grid, 1)
+
   grid$z = NA
 
-  for (i in 1:length(gx)) {
-    grid$z[i] = func(z[abs(gx[i] - x + .Machine$double.eps) <= dx/2 & abs(gy[i] - y + .Machine$double.eps) <= dy/2])
+  for (i in 1:nrow(grid)) {
+    grid$z[i] = z[tmp$nn.idx[i,]]
   }
 
   grid ## Return
