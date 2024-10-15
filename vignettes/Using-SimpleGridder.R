@@ -20,18 +20,6 @@ grid = appendData(grid, x, y, z, 'salinity')
 grid = interpData(grid)
 plotGrid(grid, 'salinity')
 
-grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
-grid = setGridder(grid, neighborhood = 20, gridder = gridNN)
-grid = appendData(grid, x, y, z, 'salinity')
-grid = interpData(grid)
-plotGrid(grid, 'salinity')
-
-grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
-grid = setGridder(grid, neighborhood = 20, gridder = gridBin, func = function(x){mean(x, na.rm = T)})
-grid = appendData(grid, x, y, z, 'salinity')
-grid = interpData(grid)
-plotGrid(grid, 'salinity')
-
 ## ----echo=TRUE----------------------------------------------------------------
 grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
 str(grid)
@@ -66,4 +54,9 @@ plotGrid(grid, 'salinity', pal = pals::inferno(128))
 plotGrid(grid, 'salinity', pal = pals::ocean.dense(8))
 plotGrid(grid, 'salinity', pal = pals::ocean.dense(128))
 
+
+## -----------------------------------------------------------------------------
+par(plt = c(0.1, 0.8, 0.1, 0.9)) # Changing plot aspect ratio to make room for colorbar
+plotGrid(grid, 'salinity', pal = pals::ocean.dense(16), zlim = c(0,2))
+colorbar(pal = pals::ocean.dense(16), zlim = c(0, 2))
 
