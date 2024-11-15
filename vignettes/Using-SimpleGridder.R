@@ -13,12 +13,16 @@ x = runif(n)
 y = runif(n)
 z = x + y
 
+plot(x, y, col = mapColor(z), pch = 16, cex = 2, xlim = c(0,1), ylim = c(0,1))
+
 ## Use SimpleGridder to make grid
 grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
 grid = setGridder(grid, neighborhood = 20)
 grid = appendData(grid, x, y, z, 'salinity')
 grid = interpData(grid)
 plotGrid(grid, 'salinity')
+
+points(x, y, col = 'black', bg = mapColor(z), pch = 21, cex = 2)
 
 ## ----echo=TRUE----------------------------------------------------------------
 grid = buildGrid(xlim = c(0,1), ylim = c(0,1), nx = 100, ny = 100)
