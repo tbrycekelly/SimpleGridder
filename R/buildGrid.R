@@ -17,17 +17,24 @@ buildGrid = function(xlim,
 
   meta$xlim = xlim
   meta$ylim = ylim
-
-  if (is.null(x.scale) & !is.null(nx)) {
-    x.scale = (xlim[2] - xlim[1]) / (nx-1)
-  } else {
+  if (is.null(x.scale) & is.null(nx)) { # Neither provided.
     stop('Error, either nx or x.scale need to be provided.')
+  } else if (is.null(x.scale) & !is.null(nx)) { # only nx provided
+    x.scale = (xlim[2] - xlim[1]) / (nx-1)
+  } else if (!is.null(x.scale) & is.null(nx)) { # only x.scale provided
+    nx = (xlim[2] - xlim[1]) / x.scale + 1
+  } else {
+    stop('Error, either nx or x.scale need to be provided. Both were provided.')
   }
 
-  if (is.null(y.scale) & !is.null(ny)) {
-    y.scale = (ylim[2] - ylim[1]) / (ny-1)
-  } else {
+  if (is.null(y.scale) & is.null(ny)) { # Neither provided.
     stop('Error, either ny or y.scale need to be provided.')
+  } else if (is.null(y.scale) & !is.null(ny)) { # only nx provided
+    y.scale = (ylim[2] - ylim[1]) / (ny-1)
+  } else if (!is.null(y.scale) & is.null(ny)) { # only x.scale provided
+    ny = (ylim[2] - ylim[1]) / y.scale + 1
+  } else {
+    stop('Error, either ny or y.scale need to be provided. Both were provided.')
   }
 
   meta$x.scale = x.scale
@@ -41,8 +48,12 @@ buildGrid = function(xlim,
   meta$ny = ny
 
   ## Rescale x and y based on x.factor and y.factor
-  if (is.null(x.factor)) { x.factor = 2*ny/(nx+ny) }
-  if (is.null(y.factor)) { y.factor = 2*nx/(nx+ny) }
+  if (is.null(x.factor)) {
+    x.factor = 2*ny/(nx+ny)
+  }
+  if (is.null(y.factor)) {
+    y.factor = 2*nx/(nx+ny)
+  }
   meta$x.factor = x.factor
   meta$y.factor = y.factor
 
